@@ -1,20 +1,18 @@
 import React, {Component} from 'react';
 import {
     BrowserRouter as Router,
-    Switch,
     Route,
     Link
 } from "react-router-dom";
 import './App.css';
 import styles from './app.module.scss';
-import {Layout, Menu, Breadcrumb} from 'antd';
+import {Layout, Menu} from 'antd';
 
 import HomeContainer from "./components/home/HomeContainer";
 import MovieContainer from "./components/movie/MovieContainer";
 import AboutContainer from "./components/about/AboutContainer";
 
-const {Header, Content, Footer, Sider} = Layout;
-const { SubMenu } = Menu;
+const {Header, Content, Footer} = Layout;
 
 class App extends Component {
     constructor() {
@@ -24,12 +22,10 @@ class App extends Component {
         }
     }
 
-    componentWillMount() {
-        let pathName = window.location.pathname.split('/')[1]
-        this.setState({
-            urlHash: pathName ? pathName : 'home'
-        })
-        console.log(this.state.urlHash)
+    static getDerivedStateFromProps(nextProps, prevState) {
+        let pathName = window.location.pathname.split('/')[1];
+        return {urlHash: pathName}
+        // console.log(prevState)
     }
 
     render() {
@@ -40,7 +36,7 @@ class App extends Component {
                         <div className={styles.logo}/>
                         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={this.state.urlHash}>
                             <Menu.Item key="home"><Link to='/home'>首页</Link></Menu.Item>
-                            <Menu.Item key="movie"><Link to='/movie'>电影</Link></Menu.Item>
+                            <Menu.Item key="movie"><Link to='/movie/in_theaters/1'>电影</Link></Menu.Item>
                             <Menu.Item key="about"><Link to='/about'>关于</Link></Menu.Item>
                         </Menu>
                     </Header>
