@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import movieStyle from "../movie/movieStyle.module.scss";
+import "../movie/movieStyle.scss";
 import {Spin} from "antd";
 
 class Loading extends Component {
     render() {
-        return <div className={movieStyle.example}>
+        return <div className="example">
             <Spin />
         </div>
     }

@@ -1,0 +1,35 @@
+.example {
+  width: 100%;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  margin: 0 auto;
+  padding: 30px 50px;
+}
+
+.movie_content-layout {
+  display: grid;
+  grid-template-columns: repeat(6, 200px);
+  font-size: 13px;
+  .movie_content-item {
+    margin: 6px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    transition: all .3s ease;
+    .movie_content-img {
+      width: 150px;
+      height: 210px;
+    }
+    .movie_item-name{
+      overflow: hidden;
+    }
+    .movie_item-type {
+      color: #cc9338;
+    }
+    &:hover {
+      opacity: 0.9;
+      transform: rotateZ(1deg) scale(1.03);
+    }
+  }
+}
