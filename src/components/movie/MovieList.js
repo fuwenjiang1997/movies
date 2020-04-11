@@ -49,7 +49,6 @@ class MovieList extends Component {
         // })
 
         setTimeout(() => {
-            console.log('获取到了')
             this.setState({
                 movies: InTheaters.subjects,
                 total: InTheaters.total,

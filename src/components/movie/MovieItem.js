@@ -17,7 +17,7 @@ class MovieItem extends Component{
     render() {
         return(
             <div className="movie_content-item">
-                <img src={this.props.images.small} className="movie_content-img" />
+                <img src={this.props.images.small} className="movie_content-img" alt="电影封面" />
                 <h4 className="movie_item-name">电影名称：{this.props.title}</h4>
                 <h4>发行时间：{this.props.year}年</h4>
                 <h4>电影类型：<span className="movie_item-type">{this.props.genres.join(',')}</span></h4>
