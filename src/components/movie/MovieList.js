@@ -57,6 +57,13 @@ class MovieList extends Component {
         }, 1000)
     }
 
+    componentWillUnmount() {
+        this.setState = (state,callback)=>{
+            return;
+        };
+
+    }
+
     changePage = (page) => {
         let url = '/movie/' + this.state.movieType + '/' + page;
         this.props.history.push(url)
