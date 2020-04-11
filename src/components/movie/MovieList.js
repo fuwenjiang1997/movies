@@ -75,7 +75,7 @@ class MovieList extends Component {
                 total: type.total,
                 isLoading: false
             })
-        }, 1000)
+        }, 500)
     }
 
     componentWillUnmount() {
