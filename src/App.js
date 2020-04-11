@@ -24,7 +24,7 @@ class App extends Component {
 
     static getDerivedStateFromProps(nextProps, prevState) {
         let pathName = window.location.pathname.split('/')[1];
-        return {urlHash: pathName}
+        return {urlHash: pathName ? pathName : 'home'}
         // console.log(prevState)
     }
 
@@ -42,6 +42,9 @@ class App extends Component {
                     </Header>
                     <Content style={{background: '#fff'}}>
                         <div className="site-layout-content" style={{height: '100%'}}>
+                            <Route exact path="/">
+                                <HomeContainer />
+                            </Route>
                             <Route path='/home' component={HomeContainer} />
                             <Route path='/movie' component={MovieContainer} />
                             <Route path='/about' component={AboutContainer} />

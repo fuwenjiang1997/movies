@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Loading from '../common/Loading';
 import InTheaters from '../test_data/in_theaters';
 import MovieItem from './MovieItem';
 import './movieStyle.scss';
+import {Pagination} from 'antd';
 
-class MovieList extends Component{
+class MovieList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,21 +13,29 @@ class MovieList extends Component{
             nowPage: parseInt(props.match.params.page) || 1,
             pageSize: 12,   // 每页数据
             total: 0,   // 当前电影分类下，总共的数据条数
-            isLoading: true
+            isLoading: true,
+            movieType: 'in_theaters'
         }
     }
-
-    // static getDerivedStateFromProps(nextProps, prevState) {
-    //     return null
-    // }
 
     componentDidMount() {
         this.GetMovies();
     }
 
-    GetMovies() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.match.params.page !== prevProps.match.params.page) {
+            this.setState({
+                nowPage: this.props.match.params.page,
+                isLoading: true
+            }, function () {
+                this.GetMovies()
+            });
+        }
+    }
+
+    GetMovies = () => {
         // 两次请求，第一次是请求成功 Response对象，第二次才获取数据
-        // fetch("http://selladmin.bfclouds.cn/seller.php?id=1").then((response) => {
+        // fetch("").then((response) => {
         //     return response.json()
         // }).then(res => {
         //     this.setState({
@@ -38,7 +47,9 @@ class MovieList extends Component{
         //         isLoading: false
         //     })
         // })
+
         setTimeout(() => {
+            console.log('获取到了')
             this.setState({
                 movies: InTheaters.subjects,
                 total: InTheaters.total,
@@ -47,19 +58,33 @@ class MovieList extends Component{
         }, 1000)
     }
 
+    changePage = (page) => {
+        let url = '/movie/' + this.state.movieType + '/' + page;
+        this.props.history.push(url)
+    }
+
     // Loading组件
     CompLoading() {
         if (this.state.isLoading) {
-            return <Loading />
+            return <Loading/>
         } else {
             return (
-              <div className="movie_content-layout">
-                  {
-                      this.state.movies.map((item) =>
-                          <MovieItem {...item} key={item.id}></MovieItem>
-                      )
-                  }
-              </div>
+                <div className="movie_content-wrapper">
+                    <div className="movie_content-layout">
+                        {
+                            this.state.movies.map((item) =>
+                                <MovieItem {...item} key={item.id}></MovieItem>
+                            )
+                        }
+                    </div>
+
+                    <Pagination
+                        defaultCurrent={this.state.nowPage}
+                        total={this.state.total}
+                        pageSize={this.state.pageSize}
+                        onChange={this.changePage}
+                    />
+                </div>
             );
         }
     }

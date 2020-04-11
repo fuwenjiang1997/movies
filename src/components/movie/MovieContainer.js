@@ -10,6 +10,13 @@ import MovieList from './MovieList';
 const {Content, Sider} = Layout;
 
 class MovieContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            movieType: window.location.pathname.split('/')[2]
+        }
+    }
+
     render() {
         return (
             <Router>
@@ -17,13 +24,13 @@ class MovieContainer extends Component {
                     <Sider width={200} style={{height: '100%'}} className="site-layout-background">
                         <Menu
                             mode="inline"
-                            defaultSelectedKeys={['1']}
+                            defaultSelectedKeys={this.state.movieType}
                             defaultOpenKeys={['sub1']}
                             style={{height: '100%', borderRight: 0}}
                         >
-                            <Menu.Item key="1"><Link to="/movie/in_theaters/1">正在热映</Link></Menu.Item>
-                            <Menu.Item key="2"><Link to="/movie/coming_soon/1">即将上映</Link></Menu.Item>
-                            <Menu.Item key="3"><Link to="/movie/top250/1">top100</Link></Menu.Item>
+                            <Menu.Item key="in_theaters"><Link to="/movie/in_theaters/1">正在热映</Link></Menu.Item>
+                            <Menu.Item key="coming_soon"><Link to="/movie/coming_soon/1">即将上映</Link></Menu.Item>
+                            <Menu.Item key="top250"><Link to="/movie/top250/1">top100</Link></Menu.Item>
                         </Menu>
                     </Sider>
                     {/*内容区域*/}

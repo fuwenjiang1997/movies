@@ -11,7 +11,6 @@ class MovieItem extends Component{
     }
 
     static getDerivedStateFromProps(props, state) {
-        console.log(props);
         return null;
     }
 
