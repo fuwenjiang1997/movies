@@ -16,7 +16,7 @@ class MovieList extends Component {
             pageSize: 12,   // 每页数据
             total: 0,   // 当前电影分类下，总共的数据条数
             isLoading: true,
-            movieType: 'in_theaters'
+            movieType: window.location.pathname.split('/')[2] || 'in_theaters'
         }
     }
 
