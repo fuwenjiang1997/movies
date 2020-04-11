@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import Loading from '../common/Loading';
 import InTheaters from '../test_data/in_theaters';
+import ComingSoon from '../test_data/coming_soon';
+import Top250 from '../test_data/top250';
 import MovieItem from './MovieItem';
 import './movieStyle.scss';
 import {Pagination} from 'antd';
@@ -31,6 +33,15 @@ class MovieList extends Component {
                 this.GetMovies()
             });
         }
+
+        if (this.props.match.params.type !== prevProps.match.params.type) {
+            this.setState({
+                movieType: this.props.match.params.type,
+                isLoading: true
+            }, function () {
+                this.GetMovies()
+            });
+        }
     }
 
     GetMovies = () => {
@@ -49,16 +60,26 @@ class MovieList extends Component {
         // })
 
         setTimeout(() => {
+            let type = InTheaters;
+            console.log(this.state.movieType, 'coming_soon')
+            if (this.state.movieType === 'coming_soon') {
+                type = InTheaters
+            }else if (this.state.movieType === 'coming_soon') {
+                type = ComingSoon;
+            } else if (this.state.movieType === 'top250') {
+                type = Top250;
+            }
+            console.log(type)
             this.setState({
-                movies: InTheaters.subjects,
-                total: InTheaters.total,
+                movies: type.subjects,
+                total: type.total,
                 isLoading: false
             })
         }, 1000)
     }
 
     componentWillUnmount() {
-        this.setState = (state,callback)=>{
+        this.setState = (state, callback) => {
             return;
         };
 
@@ -79,7 +100,7 @@ class MovieList extends Component {
                     <div className="movie_content-layout">
                         {
                             this.state.movies.map((item) =>
-                                <MovieItem {...item} key={item.id}></MovieItem>
+                                <MovieItem {...item} history={this.props.history} key={item.id}></MovieItem>
                             )
                         }
                     </div>

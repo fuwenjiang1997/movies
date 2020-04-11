@@ -2,10 +2,12 @@ import React, {Component} from "react";
 import {Layout, Menu} from "antd";
 import {
     BrowserRouter as Router,
+    Switch,
     Route,
     Link
 } from "react-router-dom";
 import MovieList from './MovieList';
+import MovieDetail from './MovieDeail';
 
 const {Content, Sider} = Layout;
 
@@ -43,7 +45,10 @@ class MovieContainer extends Component {
                                 minHeight: 280,
                             }}
                         >
-                            <Route path="/movie/:type/:page" component={MovieList}></Route>
+                            <Switch>
+                                <Route exact path="/movie/detail/:id" component={MovieDetail}></Route>
+                                <Route path="/movie/:type/:page" component={MovieList}></Route>
+                            </Switch>
                         </Content>
                     </Layout>
                 </Layout>
